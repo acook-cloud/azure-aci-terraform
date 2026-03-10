@@ -24,3 +24,21 @@ resource "azurerm_resource_group" "main" {
   name     = var.resource_group_name
   location = var.location
 }
+
+module "acr" {
+  source              = "./modules/acr"
+  name                = "acrdevmyapp${var.environment}"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+}
+
+module "app_service" {
+  source              = "./modules/app_service"
+  name                = "app-myapp-${var.environment}"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  docker_image        = "myapp:latest"
+  acr_login_server    = module.acr.login_server
+  acr_username        = module.acr.admin_username
+  acr_password        = module.acr.admin_password
+}
