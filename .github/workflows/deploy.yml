@@ -92,9 +92,9 @@ jobs:
       - name: Test deployment
         working-directory: terraform
         run: |
-          APP_URL=$(terraform output -raw app_url)
-          echo "Testing $APP_URL"
-          curl --fail http://${APP_URL}:8080
+          APP_HOSTNAME=$(terraform output -raw app_url)
+          echo "Testing $APP_HOSTNAME"
+          curl --fail http://${APP_HOSTNAME}:8080
         env:
           ARM_CLIENT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
           ARM_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
