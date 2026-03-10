@@ -7,5 +7,5 @@ output "acr_login_server" {
 }
 
 output "app_url" {
-  value = "https://${module.app_service.default_hostname}"
+  value = module.app_service.default_hostname
 }
