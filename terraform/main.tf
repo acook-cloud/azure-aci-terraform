@@ -32,8 +32,8 @@ module "acr" {
   location            = azurerm_resource_group.main.location
 }
 
-module "app_service" {
-  source              = "./modules/app_service"
+module "container_group" {
+  source              = "./modules/container_group"
   name                = "app-myapp-${var.environment}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
